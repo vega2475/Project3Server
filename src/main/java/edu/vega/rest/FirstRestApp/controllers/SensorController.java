@@ -6,7 +6,6 @@ import edu.vega.rest.FirstRestApp.models.Sensor;
 import edu.vega.rest.FirstRestApp.util.Exceptions.SensorNotCreatedException;
 import edu.vega.rest.FirstRestApp.util.Exceptions.SensorNotFoundException;
 import edu.vega.rest.FirstRestApp.util.Exceptions.SensorResponseError;
-import edu.vega.rest.FirstRestApp.util.SensorValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
