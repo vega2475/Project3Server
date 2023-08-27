@@ -1,47 +1,48 @@
 package edu.vega.rest.FirstRestApp.dto;
 
 import edu.vega.rest.FirstRestApp.models.Sensor;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class MeasurementDTO {
-    @Size(min = -100, max = 100)
-    private double value;
-    @NotEmpty
-    private boolean raining;
+    @NotNull
+    @Min(value = -100)
+    @Max(value = 100)
+    private Double value;
+    @NotNull
+    private Boolean raining;
+    @NotNull
+    private SensorDTO sensor;
 
-    @NotEmpty
-    private Sensor sensor;
+    public MeasurementDTO(){}
 
-    public MeasurementDTO(double value, boolean raining, Sensor sensor) {
+
+    public MeasurementDTO(Double value, Boolean raining, SensorDTO sensor) {
         this.value = value;
         this.raining = raining;
         this.sensor = sensor;
     }
 
-    public MeasurementDTO(){}
-
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public boolean isRaining() {
+    public Boolean getRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 
-    public Sensor getSensor() {
+    public SensorDTO getSensor() {
         return sensor;
     }
 
-    public void setSensor(Sensor sensor) {
+    public void setSensor(SensorDTO sensor) {
         this.sensor = sensor;
     }
 }

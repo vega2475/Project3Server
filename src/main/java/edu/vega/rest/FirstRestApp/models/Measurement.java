@@ -1,68 +1,68 @@
 package edu.vega.rest.FirstRestApp.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import jdk.jfr.Category;
 import jdk.jfr.Timestamp;
+import org.hibernate.annotations.Cascade;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Measurements")
 public class Measurement {
     @Id
     @Column(name = "id")
-    @NotEmpty
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "value")
-    @Size(min = -100, max = 100)
-    private double value;
+    @NotNull
+    @Min(value = -100)
+    @Max(value = 100)
+    private Double value;
 
     @Column(name = "raining")
-    @NotEmpty
-    private boolean raining;
+    @NotNull
+    private Boolean raining;
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    @JoinColumn(name = "sensor", referencedColumnName = "name")
     private Sensor sensor;
 
-    @Column(name = "sensor_name")
-    private String sensorName;
-
-    @Column(name = "created_at")
+    @Column(name = "createdat")
     @Timestamp
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public Measurement(){}
 
-    public Measurement(double value, boolean raining) {
+    public Measurement(Double value, Boolean raining) {
         this.value = value;
         this.raining = raining;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public boolean isRaining() {
+    public Boolean isRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 
@@ -74,19 +74,11 @@ public class Measurement {
         this.sensor = sensor;
     }
 
-    public String getSensorName() {
-        return sensorName;
-    }
-
-    public void setSensorName(String sensorName) {
-        this.sensorName = sensorName;
-    }
-
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

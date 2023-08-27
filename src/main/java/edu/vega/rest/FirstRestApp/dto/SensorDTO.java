@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public class SensorDTO {
     @NotEmpty
-    @Size(min = 3, max = 30)
+    @Size(min = 3, max = 30, message = "Name must be 3 - 30")
     private String name;
 
     public SensorDTO(){}
