@@ -3,7 +3,7 @@ package edu.vega.rest.FirstRestApp.Services;
 import edu.vega.rest.FirstRestApp.Repositories.SensorRepository;
 import edu.vega.rest.FirstRestApp.dto.SensorDTO;
 import edu.vega.rest.FirstRestApp.models.Sensor;
-import edu.vega.rest.FirstRestApp.util.SensorNotFoundException;
+import edu.vega.rest.FirstRestApp.util.Exceptions.SensorNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +54,9 @@ public class SensorService {
     }
     public Sensor convertToSensor(SensorDTO sensorDTO){
         return modelMapper.map(sensorDTO, Sensor.class);
+    }
+
+    public Optional<Sensor> findSensorByName(String name){
+        return sensorRepository.findByName(name).stream().findFirst();
     }
 }
