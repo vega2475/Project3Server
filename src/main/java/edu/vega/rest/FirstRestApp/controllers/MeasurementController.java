@@ -2,6 +2,8 @@ package edu.vega.rest.FirstRestApp.controllers;
 
 import edu.vega.rest.FirstRestApp.Services.MeasurementService;
 import edu.vega.rest.FirstRestApp.dto.MeasurementDTO;
+import edu.vega.rest.FirstRestApp.dto.MeasurementResponse;
+import edu.vega.rest.FirstRestApp.models.Measurement;
 import edu.vega.rest.FirstRestApp.util.Exceptions.MeasureResponseError;
 import edu.vega.rest.FirstRestApp.util.Exceptions.MeasurementNotCreatedException;
 import edu.vega.rest.FirstRestApp.util.Exceptions.MeasurementNotFoundException;
@@ -30,13 +32,14 @@ public class MeasurementController {
     }
 
     @GetMapping()
-    public List<MeasurementDTO> getAllMeasurements(){
-        return measurementService.getAllMeasurements().stream().map(measurement -> measurementService.convertToDTO(measurement)).toList();
+    public MeasurementResponse getAllMeasurements(){
+        return new MeasurementResponse(measurementService.getAllMeasurements().stream().map(measurement -> measurementService.convertToDTO(measurement)).toList());
     }
 
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementDTO measurementDTO, BindingResult bindingResult){
-        measurementValidator.validate(measurementService.convertToMeasurement(measurementDTO), bindingResult);
+        Measurement measurement = measurementService.convertToMeasurement(measurementDTO);
+        measurementValidator.validate(measurement, bindingResult);
         if(bindingResult.hasErrors()){
             StringBuilder message = new StringBuilder();
             List<FieldError> errors = bindingResult.getFieldErrors();
